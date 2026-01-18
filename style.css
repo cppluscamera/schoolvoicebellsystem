@@ -1,0 +1,405 @@
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-panel: #141414;
+    /* Metallic dark */
+    --text-primary: #e0e0e0;
+    /* Silver */
+    --text-secondary: #a0a0a0;
+    --neon-blue: #00f3ff;
+    --neon-green: #00ff9d;
+    --metallic-gradient: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --font-main: 'Inter', sans-serif;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- Typography --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #fff, var(--neon-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.neon-text {
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+/* --- Layout --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+/* --- Header --- */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--neon-blue);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
+}
+
+.btn-primary {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+}
+
+.btn-primary:hover {
+    background: var(--neon-blue);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+
+.mobile-menu-btn {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* --- Hero Section with Dynamic Multi-Effect --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    /* Fallback */
+}
+
+/* Animated Background Layer (Image Pan/Zoom) */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.2), #000 90%),
+        /* Depth gradient */
+        url('images/hero_effective.png');
+    background-size: 120%;
+    /* Start larger for zoom room */
+    background-position: center;
+    z-index: 0;
+    animation: multiDirectionMove 15s infinite alternate ease-in-out;
+    filter: brightness(0.9) contrast(1.2);
+}
+
+/* RGB Multi-Color Rotating Ring */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    /* RGB Rainbow Gradient */
+    background: conic-gradient(#ff0000, #ff7f00, #ffff00, #00ff00,
+            #0000ff, #4b0082, #9400d3, #ff0000);
+    z-index: 1;
+    /* Behind text but visible */
+    padding: 10px;
+    /* Thickness of the ring */
+    /* Masking to create a ring shape */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rgbSpin 4s linear infinite;
+    opacity: 0.8;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+    /* Glow */
+}
+
+/* Ensure text is above the RGB Ring */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* 1. Image Multi-Directional Movement */
+@keyframes multiDirectionMove {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    25% {
+        transform: scale(1.05) translate(-2%, 1%);
+    }
+
+    50% {
+        transform: scale(1.1) translate(2%, -2%);
+    }
+
+    75% {
+        transform: scale(1.05) translate(-1%, -1%);
+    }
+
+    100% {
+        transform: scale(1) translate(0, 0);
+    }
+}
+
+/* 2. RGB Spinning Animation */
+@keyframes rgbSpin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    animation: textGlow 3s infinite alternate;
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+    }
+
+    to {
+        text-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
+    }
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    /* Ensuring readability */
+    max-width: 700px;
+    margin: 0 auto 40px;
+    background: rgba(0, 0, 0, 0.3);
+    /* Slight backing for contrast */
+    padding: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(2px);
+}
+
+/* --- Services Preview --- */
+.services-preview {
+    background: var(--bg-panel);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.1);
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin: 20px 0 15px;
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--neon-blue);
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--neon-blue);
+    font-weight: 600;
+}
+
+/* --- Footer --- */
+footer {
+    background: #050505;
+    padding: 60px 0 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-logo h2 {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+    color: var(--neon-blue);
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: #0a0a0a;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.5s;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        color: #fff;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
