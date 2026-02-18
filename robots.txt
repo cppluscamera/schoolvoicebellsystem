@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://schoolvoicebellunnao.netlify.app/sitemap.xml
+Sitemap: https://cppluscamera.github.io/schoolvoicebellsystem/
